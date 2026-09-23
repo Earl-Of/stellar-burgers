@@ -10,6 +10,9 @@ import {
   ResetPassword
 } from '@pages';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from '../../services/store';
+import { checkUserAuth } from '../../services/authSlice';
 
 import styles from './app.module.css';
 
@@ -19,6 +22,11 @@ import { ProtectedRoute } from '../protectedRoute';
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  }, [dispatch]);
 
   const locationState = location.state as { background?: Location };
   const background = locationState && locationState.background;
