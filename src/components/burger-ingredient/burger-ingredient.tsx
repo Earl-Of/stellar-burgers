@@ -8,6 +8,7 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
     const location = useLocation();
 
+    // TODO: на этапе конструктора вернуть dispatch(addBun / addIngredient)
     const handleAdd = () => {};
 
     return (

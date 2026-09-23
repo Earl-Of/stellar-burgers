@@ -9,3 +9,11 @@ export const userDataSelector = (state: RootState) => state.auth.user;
 export const loginErrorSelector = (state: RootState) => state.auth.loginError;
 export const loginLoadingSelector = (state: RootState) =>
   state.auth.loginLoading;
+
+// Ингредиенты
+export const ingredientsSelector = (state: RootState) =>
+  state.ingredients.items;
+export const ingredientsLoadingSelector = (state: RootState) =>
+  state.ingredients.loading;
+export const ingredientsErrorSelector = (state: RootState) =>
+  state.ingredients.error;

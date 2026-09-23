@@ -13,6 +13,7 @@ import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { checkUserAuth } from '../../services/authSlice';
+import { fetchIngredients } from '../../services/ingredientsSlice';
 
 import styles from './app.module.css';
 
@@ -26,6 +27,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkUserAuth());
+    dispatch(fetchIngredients());
   }, [dispatch]);
 
   const locationState = location.state as { background?: Location };
