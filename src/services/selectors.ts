@@ -17,3 +17,6 @@ export const ingredientsLoadingSelector = (state: RootState) =>
   state.ingredients.loading;
 export const ingredientsErrorSelector = (state: RootState) =>
   state.ingredients.error;
+// Конструктор
+export const constructorItemsSelector = (state: RootState) =>
+  state.burgerConstructor;

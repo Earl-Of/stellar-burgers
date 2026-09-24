@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
 import ingredientsReducer from './ingredientsSlice';
+import constructorReducer from './constructorSlice';
 
 import {
   TypedUseSelectorHook,
@@ -9,8 +10,9 @@ import {
 } from 'react-redux';
 
 const rootReducer = {
-  auth: authReducer, // Редьюсер для управления состоянием аутентификации
-  ingredients: ingredientsReducer // Редьюсер для управления состоянием ингредиентов
+  auth: authReducer,
+  ingredients: ingredientsReducer,
+  burgerConstructor: constructorReducer
 };
 
 const store = configureStore({
