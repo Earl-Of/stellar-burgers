@@ -2,6 +2,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
 import ingredientsReducer from './ingredientsSlice';
 import constructorReducer from './constructorSlice';
+import orderReducer from './orderSlice';
+import feedReducer from './feedSlice';
+import userOrdersReducer from './userOrdersSlice';
+import currentOrderReducer from './currentOrderSlice';
 
 import {
   TypedUseSelectorHook,
@@ -12,7 +16,11 @@ import {
 const rootReducer = {
   auth: authReducer,
   ingredients: ingredientsReducer,
-  burgerConstructor: constructorReducer
+  burgerConstructor: constructorReducer,
+  order: orderReducer,
+  feed: feedReducer,
+  userOrders: userOrdersReducer,
+  currentOrder: currentOrderReducer
 };
 
 const store = configureStore({
