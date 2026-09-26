@@ -12,9 +12,16 @@ export const Modal: FC<TModalProps> = memo(({ title, onClose, children }) => {
       e.key === 'Escape' && onClose();
     };
 
+    const root = document.getElementById('root');
+
     document.addEventListener('keydown', handleEsc);
+    document.body.style.overflow = 'hidden'; // блокируем прокрутку страницы
+    if (root) root.style.pointerEvents = 'none'; // блокируем клики по фону под модалкой
+
     return () => {
       document.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = '';
+      if (root) root.style.pointerEvents = '';
     };
   }, [onClose]);
 
