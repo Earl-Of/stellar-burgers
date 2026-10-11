@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import ingredientsMock from './mocks/ingredients.json';
 
 // список констант для тестов
 const BUN_NAME = 'Краторная булка N-200i';
@@ -22,13 +21,10 @@ test.describe('Тестирование Конструктора бургера'
       }
     ]);
 
-    await page.route('**/api/ingredients', (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify(ingredientsMock)
-      })
-    );
+    await page.routeFromHAR('./tests/hars/ingredients.har', {
+      url: '**/api/ingredients',
+      update: false
+    });
     await page.routeFromHAR('./tests/hars/auth-user.har', {
       url: '**/api/auth/user',
       update: false
