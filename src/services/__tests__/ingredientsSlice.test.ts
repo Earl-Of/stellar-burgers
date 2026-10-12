@@ -44,9 +44,10 @@ describe('тестирование редьюсера ingredients', () => {
 
   test('тестирование состояния при pending', () => {
     expect(
-      ingredientsReducer(undefined, {
-        type: fetchIngredients.pending.type
-      })
+      ingredientsReducer(
+        { items: [], loading: false, error: 'Старая ошибка' },
+        { type: fetchIngredients.pending.type }
+      )
     ).toEqual({
       items: [],
       loading: true,
@@ -56,10 +57,13 @@ describe('тестирование редьюсера ingredients', () => {
 
   test('тестирование состояния при fulfilled', () => {
     expect(
-      ingredientsReducer(undefined, {
-        type: fetchIngredients.fulfilled.type,
-        payload: mockIngredients
-      })
+      ingredientsReducer(
+        { items: [], loading: true, error: null },
+        {
+          type: fetchIngredients.fulfilled.type,
+          payload: mockIngredients
+        }
+      )
     ).toEqual({
       items: mockIngredients,
       loading: false,
@@ -69,14 +73,17 @@ describe('тестирование редьюсера ingredients', () => {
 
   test('тестирование состояния при rejected', () => {
     expect(
-      ingredientsReducer(undefined, {
-        type: fetchIngredients.rejected.type,
-        error: { message: 'Ошибка загрузки ингредиентов' }
-      })
+      ingredientsReducer(
+        { items: [], loading: true, error: null },
+        {
+          type: fetchIngredients.rejected.type,
+          error: { message: 'Сервер недоступен' }
+        }
+      )
     ).toEqual({
       items: [],
       loading: false,
-      error: 'Ошибка загрузки ингредиентов'
+      error: 'Сервер недоступен'
     });
   });
 
