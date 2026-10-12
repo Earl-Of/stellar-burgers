@@ -89,7 +89,7 @@ test.describe('Тестирование Конструктора бургера'
   });
 
   test('закрытие модального окна по крестику', async ({ page }) => {
-    await page.locator('li', { hasText: BUN_NAME }).getByRole('link').click();
+    await page.locator('li', { hasText: SAUCE_NAME }).getByRole('link').click();
 
     await expect(
       page.getByTestId('modal').getByText('Детали ингредиента')
@@ -101,7 +101,7 @@ test.describe('Тестирование Конструктора бургера'
   });
 
   test('закрытие модального окна по оверлею', async ({ page }) => {
-    await page.locator('li', { hasText: BUN_NAME }).getByRole('link').click();
+    await page.locator('li', { hasText: SAUCE_NAME }).getByRole('link').click();
 
     await expect(
       page.getByTestId('modal').getByText('Детали ингредиента')
