@@ -4,6 +4,7 @@ import { test, expect } from '@playwright/test';
 const BUN_NAME = 'Краторная булка N-200i';
 const MAIN_NAME = 'Биокотлета из марсианской Магнолии';
 const ORDER_NUMBER = '12345';
+const SAUCE_NAME = 'Соус Spicy-X';
 
 test.describe('Тестирование Конструктора бургера', () => {
   test.beforeEach(async ({ page }) => {
@@ -31,6 +32,10 @@ test.describe('Тестирование Конструктора бургера'
     });
     await page.routeFromHAR('./tests/hars/orders.har', {
       url: '**/api/orders',
+      update: false
+    });
+    await page.routeFromHAR('./tests/hars/orders-all.har', {
+      url: '**/api/orders/all',
       update: false
     });
 
@@ -62,13 +67,25 @@ test.describe('Тестирование Конструктора бургера'
     ).toBeVisible();
   });
 
-  test('открытие модального окна ингредиента', async ({ page }) => {
-    await page.locator('li', { hasText: BUN_NAME }).getByRole('link').click();
+  test('открытие модального окна выбранного ингредиента (соус, не первый в списке)', async ({
+    page
+  }) => {
+    await page.locator('li', { hasText: SAUCE_NAME }).getByRole('link').click();
 
-    await expect(
-      page.getByTestId('modal').getByText('Детали ингредиента')
-    ).toBeVisible();
-    await expect(page.getByTestId('modal').getByText(BUN_NAME)).toBeVisible();
+    const modal = page.getByTestId('modal');
+
+    await expect(modal.getByText('Детали ингредиента')).toBeVisible();
+    await expect(modal.getByText(SAUCE_NAME)).toBeVisible();
+
+    // данные именно соуса: калории, белки, жиры, углеводы
+    await expect(modal).toContainText('77');
+    await expect(modal).toContainText('31');
+    await expect(modal).toContainText('22');
+    await expect(modal).toContainText('43');
+
+    // других ингредиентов в модалке нет
+    await expect(modal.getByText(BUN_NAME)).not.toBeVisible();
+    await expect(modal.getByText(MAIN_NAME)).not.toBeVisible();
   });
 
   test('закрытие модального окна по крестику', async ({ page }) => {
