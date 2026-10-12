@@ -158,4 +158,46 @@ describe('тестирование редьюсера burgerConstructor', () => 
       ingredients: []
     });
   });
+
+  test('тестируем замену уже выбранной булки', () => {
+    const newBun: TConstructorIngredient = {
+      ...bun,
+      id: '5',
+      _id: 'bun-2',
+      name: 'Флюоресцентная булка R2-D3'
+    };
+    expect(
+      burgerConstructorReducer(
+        { bun, ingredients: [ingredient1, ingredient2] },
+        addBun(newBun)
+      )
+    ).toEqual({
+      bun: newBun,
+      ingredients: [ingredient1, ingredient2]
+    });
+  });
+
+  test('первый ингредиент нельзя поднять выше', () => {
+    expect(
+      burgerConstructorReducer(
+        { bun: null, ingredients: [ingredient1, ingredient2, ingredient3] },
+        moveIngredientUp(0)
+      )
+    ).toEqual({
+      bun: null,
+      ingredients: [ingredient1, ingredient2, ingredient3]
+    });
+  });
+
+  test('последний ингредиент нельзя опустить ниже', () => {
+    expect(
+      burgerConstructorReducer(
+        { bun: null, ingredients: [ingredient1, ingredient2, ingredient3] },
+        moveIngredientDown(2)
+      )
+    ).toEqual({
+      bun: null,
+      ingredients: [ingredient1, ingredient2, ingredient3]
+    });
+  });
 });
